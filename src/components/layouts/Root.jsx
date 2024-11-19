@@ -1,12 +1,20 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Navbar from '../pages/Navbar';
+import Footer from '../pages/Footer';
 
 const Root = () => {
     return (
-        <div>
-            <h1>nav</h1>
-            <Outlet></Outlet>
-            <h1>footer</h1>
+        <div className='font-lato'>
+            <div className='space-y-20'>
+                <Navbar></Navbar>
+                
+                <div className='w-11/12 mx-auto'>
+                    <Outlet></Outlet>
+                </div>
+            </div>
+
+            <Footer></Footer>
         </div>
     );
 };

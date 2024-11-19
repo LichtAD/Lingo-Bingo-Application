@@ -1,9 +1,15 @@
 import React from 'react';
+import Slider from '../pages/Slider';
+import AboutSection from '../pages/AboutSection';
 
 const Home = () => {
     return (
         <div>
-            <h1>Home</h1>
+            
+            <Slider></Slider>
+
+            <AboutSection></AboutSection>
+
         </div>
     );
 };

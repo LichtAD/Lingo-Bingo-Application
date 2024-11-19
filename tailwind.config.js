@@ -5,10 +5,21 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#ff0000',
+      },
+      fontFamily: {
+        lato: ['Lato', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
+    },
   },
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light", "dark", "winter"],
+  },
 }
 
