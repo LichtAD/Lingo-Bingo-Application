@@ -61,7 +61,10 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <div className='flex items-center'>
+                        <a className="btn btn-ghost text-xl">daisyUI</a>
+                        <h1>Welcome ABC</h1>
+                    </div>
                 </div>
 
                 <div className="hidden lg:flex">
@@ -72,9 +75,7 @@ const Navbar = () => {
 
                 <div className='flex gap-4'>
 
-                    <div>
-                        <h1>Welcome ABC</h1>
-                    </div>
+
 
                     <div>
                         <a className="btn bg-white border-none">Button</a>

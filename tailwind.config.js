@@ -8,6 +8,8 @@ export default {
     extend: {
       colors: {
         primary: '#ff0000',
+        cold: '#d1f5ff',
+        btn_bg: '#F2F7FF',
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif'],

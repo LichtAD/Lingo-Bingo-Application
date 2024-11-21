@@ -6,7 +6,7 @@ import Footer from '../pages/Footer';
 const Root = () => {
     return (
         <div className='font-lato'>
-            <div className='space-y-20'>
+            <div className='space-y-10'>
                 <Navbar></Navbar>
                 
                 <div className='w-11/12 mx-auto'>

@@ -12,6 +12,7 @@ import StartLearning from './components/pages/StartLearning';
 import Tutorials from './components/pages/Tutorials';
 import AboutUs from './components/pages/AboutUs';
 import Profile from './components/pages/Profile';
+import LessonDetailsCard from './components/pages/LessonDetailsCard';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/learning",
         element: <StartLearning></StartLearning>,
+      },
+      {
+        path: "/learning/:lessonId",
+        element: <LessonDetailsCard></LessonDetailsCard>,
+        loader: () => fetch('/japanese.json')
       },
       {
         path: "/tutorials",
