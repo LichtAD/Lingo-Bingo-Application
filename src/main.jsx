@@ -13,6 +13,9 @@ import Tutorials from './components/pages/Tutorials';
 import AboutUs from './components/pages/AboutUs';
 import Profile from './components/pages/Profile';
 import LessonDetailsCard from './components/pages/LessonDetailsCard';
+import AuthProvider from './components/provider/AuthProvider';
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -45,12 +48,22 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile></Profile>,
       },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

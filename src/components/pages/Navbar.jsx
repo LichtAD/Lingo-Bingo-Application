@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
-
-
 
     // ! theme function
     const [theme, setTheme] = useState('winter');
     useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);
     }, [theme]);
-
-
 
     // menu menu-horizontal
     const links = <div className='flex gap-8 items-center'>
@@ -20,10 +17,6 @@ const Navbar = () => {
         <li><NavLink to="/tutorials">Tutorials</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/profile">My Profile</NavLink></li>
-
-        {/* <li><a>Start Learning</a></li>
-        <li><a>Tutorials</a></li>
-        <li><a>About Us</a></li> */}
 
         {/* <li>
             <details>
@@ -35,6 +28,8 @@ const Navbar = () => {
             </details>
         </li> */}
     </div>
+
+    const { user } = useContext(AuthContext);
 
     return (
         <div className='font-roboto bg-[#F2F7FF]'>
@@ -63,7 +58,12 @@ const Navbar = () => {
                     </div>
                     <div className='flex items-center'>
                         <a className="btn btn-ghost text-xl">daisyUI</a>
-                        <h1>Welcome ABC</h1>
+                        {/* <h1>Welcome {user ? user : 'Guest'}</h1> */}
+                        <h2>
+                            {
+                                user ? `Welcome ${user}` : 'Welcome Guest'
+                            }
+                        </h2>
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@ const Navbar = () => {
 
 
                     <div>
-                        <a className="btn bg-white border-none">Button</a>
+                        <NavLink to="/login" className="btn bg-white border-none">Login Now</NavLink>
                     </div>
 
                     {/* <div>
