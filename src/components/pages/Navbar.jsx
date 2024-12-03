@@ -4,6 +4,11 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
 
+    // console.log(import.meta.env.VITE_TEST);
+
+    const { user, logOut } = useContext(AuthContext);
+    // console.log(user);
+
     // ! theme function
     const [theme, setTheme] = useState('winter');
     useEffect(() => {
@@ -18,18 +23,7 @@ const Navbar = () => {
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/profile">My Profile</NavLink></li>
 
-        {/* <li>
-            <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                    <li><a>Submenu 1</a></li>
-                    <li><a>Submenu 2</a></li>
-                </ul>
-            </details>
-        </li> */}
     </div>
-
-    const { user } = useContext(AuthContext);
 
     return (
         <div className='font-roboto bg-[#F2F7FF]'>
@@ -61,7 +55,7 @@ const Navbar = () => {
                         {/* <h1>Welcome {user ? user : 'Guest'}</h1> */}
                         <h2>
                             {
-                                user ? `Welcome ${user}` : 'Welcome Guest'
+                                user ? `Welcome ${user.email} - ${user.displayName}` : 'Welcome Guest'
                             }
                         </h2>
                     </div>
@@ -75,26 +69,25 @@ const Navbar = () => {
 
                 <div className='flex gap-4'>
 
-
-
                     <div>
-                        <NavLink to="/login" className="btn bg-white border-none">Login Now</NavLink>
+                        {
+                            user && user?.photoURL ?
+                                <div className="avatar">
+                                    <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                        <img src={user?.photoURL} />
+                                    </div>
+                                </div>
+                                : 'image'
+                        }
                     </div>
 
-                    {/* <div>
-                        <div className="dropdown dropdown-end">
-                            <label tabIndex={0} className="btn m-1">
-                                {theme === 'dark' ? 'Dark' : theme === 'winter' ? 'Winter' : 'Light'}
-                            </label>
-                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a onClick={() => setTheme('dark')}>Dark</a></li>
-                                <li><a onClick={() => setTheme('winter')}>Winter</a></li>
-                                <li><a onClick={() => setTheme('light')}>Light</a></li>
-                            </ul>
-                        </div>
-                    </div> */}
-
-
+                    <div>
+                        {
+                            user && user?.email ?
+                                <button onClick={logOut} className="btn bg-white border-none">Log-Out</button>
+                                : <NavLink to="/login" className="btn bg-white border-none">Login Now</NavLink>
+                        }
+                    </div>
 
                     {/* ⁡⁢⁣⁢customize start⁡ */}
                     <div className="dropdown">

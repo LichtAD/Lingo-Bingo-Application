@@ -1,16 +1,69 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Register = () => {
+
+    const { createNewUser, user, setUser, updateMyProfile } = useContext(AuthContext);
+
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleRegister = event => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
+
+        if (name.length < 5) {
+            setError('Name must be at least 5 characters long');
+            toast.error(error, {
+                position: "top-right",
+                autoClose: 2000
+            })
+            return;
+        }
+
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, photo, email, password);
+
+        const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+        // const password = "Passw1";
+        const isValid = regex.test(password);
+        // console.log(isValid); // true if valid, false otherwise
+
+        if (!isValid) {
+            setError('Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long.');
+            toast.error(error, {
+                position: "top-right",
+                autoClose: 2000
+            })
+            return;
+        }
+
+        // console.log({ name, photo, email, password });
+
+        setError('');
+
+        createNewUser(email, password)
+            .then(result => {
+                setUser(result.user);
+                // console.log(result.user);
+                updateMyProfile({ displayName: name, photoURL: photo });
+                navigate('/');
+            })
+            .catch(err => {
+                const errorMessage = err.message;
+                // console.log({ errorMessage });
+                setError(errorMessage);
+                toast.error(err.message, {
+                    position: "top-right",
+                    autoClose: 2000
+                })
+            })
     }
 
     return (
@@ -47,6 +100,13 @@ const Register = () => {
                                 </label>
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                             </div>
+
+                            <div>
+                                {
+                                    error && <p className='text-red-500'>{error}</p>
+                                }
+                            </div>
+
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Register</button>
                             </div>

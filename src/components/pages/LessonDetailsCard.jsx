@@ -14,7 +14,7 @@ const LessonDetailsCard = () => {
 
     // const lessonArr = data.filter(lesson => parseInt(lesson.id.slice(-2)) === parseInt(lessonId));
     const lessonArr = data.filter(lesson => lesson.lesson_no === parseInt(lessonId));
-    console.log(lessonArr);
+    // console.log(lessonArr);
 
     return (
         <div className='mb-20'>

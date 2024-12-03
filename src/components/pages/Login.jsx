@@ -1,14 +1,42 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+
+    const location = useLocation();
+    // console.log(location);
+
+    const [error, setError] = useState('');
+
+    const { logInUser } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        // console.log({ email, password });
+
+        setError('');
+
+        logInUser(email, password)
+            .then(result => {
+                // console.log(result.user);
+                navigate(location?.state ? location.state : "/")
+            })
+            .catch(err => {
+                // console.log(err.message);
+                // alert(err.message);
+                setError(err.message);
+                toast.error(err.message, {
+                    position: "top-right",
+                    autoClose: 2000
+                })
+            })
     }
 
     return (
@@ -43,6 +71,12 @@ const Login = () => {
                                     <input type="checkbox" className="checkbox checkbox-primary" />
                                     <span className="label-text">Remember me</span>
                                 </label>
+                            </div>
+
+                            <div>
+                                {
+                                    error && <p className='text-red-500'>{error}</p>
+                                }
                             </div>
 
                             <div className="form-control mt-0">

@@ -16,6 +16,7 @@ import LessonDetailsCard from './components/pages/LessonDetailsCard';
 import AuthProvider from './components/provider/AuthProvider';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/learning/:lessonId",
-        element: <LessonDetailsCard></LessonDetailsCard>,
+        element: <PrivateRoute>
+          <LessonDetailsCard></LessonDetailsCard>
+        </PrivateRoute>,
         loader: () => fetch('/japanese.json')
       },
       {
@@ -46,7 +49,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: <PrivateRoute>
+          <Profile></Profile>
+        </PrivateRoute>,
       },
       {
         path: "/login",

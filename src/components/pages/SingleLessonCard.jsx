@@ -2,7 +2,7 @@ import React from 'react';
 
 const SingleLessonCard = ({ lesson }) => {
 
-    console.log(lesson);
+    // console.log(lesson);
 
     const { id, word, pronunciation, meaning, part_of_speech, difficulty, lesson_no, when_to_say, example } = lesson;
 
