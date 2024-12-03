@@ -18,7 +18,7 @@ const Register = () => {
 
         if (name.length < 5) {
             setError('Name must be at least 5 characters long');
-            toast.error(error, {
+            toast.error('Name must be at least 5 characters long', {
                 position: "top-right",
                 autoClose: 2000
             })
@@ -37,7 +37,7 @@ const Register = () => {
 
         if (!isValid) {
             setError('Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long.');
-            toast.error(error, {
+            toast.error('Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long.', {
                 position: "top-right",
                 autoClose: 2000
             })
@@ -50,10 +50,22 @@ const Register = () => {
 
         createNewUser(email, password)
             .then(result => {
-                setUser(result.user);
+                const user = result.user;
+                setUser(user);
                 // console.log(result.user);
-                updateMyProfile({ displayName: name, photoURL: photo });
-                navigate('/');
+                updateMyProfile({ displayName: name, photoURL: photo })
+                    .then(() => {
+                        setUser({ ...user, displayName: name, photoURL: photo })
+                        navigate('/')
+                    })
+                    .catch(err => {
+                        // console.log(err.message);
+                        setError(err.message);
+                        toast.error(err.message, {
+                            position: "top-right",
+                            autoClose: 2000
+                        })
+                    })
             })
             .catch(err => {
                 const errorMessage = err.message;
